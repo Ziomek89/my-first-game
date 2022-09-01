@@ -12,6 +12,17 @@ window.onload = () => {
 
 
 
+  let gameCount = 0;
+  let interval = setInterval(function(){
+    gameCount += 1;
+    if(gameCount === 100){
+      clearInterval(interval);
+    }
+  
+    console.log();
+    
+  }, 4000);
+
 
 
 //----------------------------------------------CONSTANTS FOR ATTACK DAMAGE
@@ -33,6 +44,9 @@ let checkIfDead = (e) => {
     return true;
   }
 };
+
+
+
 
 //----------------------------------------------CLASS DECLARATIONS
 class Fighter {
@@ -167,6 +181,8 @@ let enemy = new Enemy(
   }
 );
 
+
+
 //----------------------------------------------Constants for images
 
 const background = new Image()
@@ -182,14 +198,34 @@ enemyImage.src="./images/My project-1.png";
  function drawEnemyHealth() {
   let enemy_health = 5000;
   let cw = (enemy.health / enemy_health) * 300;
-  ctx.fillStyle = 'red';
+  if(cw > 225){
+    ctx.fillStyle = 'green'
+  } else if(cw > 150){
+    ctx.fillStyle = 'yellow'
+  } else if(cw > 75){
+    ctx.fillStyle = 'orange'
+  } else if(cw > 0){
+    ctx.fillStyle = 'red'
+  } else {
+    ctx.fillStyle = 'black'
+  }
   ctx.fillRect(650, 50, cw, 25)
 };
 
 function drawPlayerHealth() {
   let player_health = 5000;
   let cw1 = (player.health / player_health) * 300;
-  ctx.fillStyle = 'red';
+  if(cw1 > 225){
+    ctx.fillStyle = 'green'
+  } else if(cw1 > 150){
+    ctx.fillStyle = 'yellow'
+  } else if(cw1 > 75){
+    ctx.fillStyle = 'orange'
+  } else if(cw1 > 0){
+    ctx.fillStyle = 'red'
+  } else {
+    ctx.fillStyle = 'black'
+  }
   ctx.fillRect(100, 300, cw1, 25)
 };
 
@@ -239,40 +275,6 @@ enemyImage.onload = (event) => {
   finishedLoading()
 };
 
-//----------------------------------------------EVENT LISTENER FOR PLAYER ATTACKS
-window.addEventListener("keydown", function (event) {
-  console.log(event);
-  if (event.code === "ArrowRight") {
-    //sets the picked attack in player to attack1
-    player.pickedAttack = player.attack1;
-    //executes the attack method
-    player.attack();
-    alert(enemy.health);
-    enemy.attack();
-    alert(player.health);
-  }
-  if (event.code === "ArrowLeft") {
-    player.pickedAttack = player.attack2;
-    player.attack();
-    alert(enemy.health);
-    enemy.attack();
-    alert(player.health);
-  }
-  if (event.code === "ArrowDown") {
-    player.pickedAttack = player.attack3;
-    player.attack();
-    alert(enemy.health);
-    enemy.attack();
-    alert(player.health);
-  }
-  if (event.code === "ArrowUp") {
-    player.pickedAttack = player.attack4;
-    player.attack();
-    alert(enemy.health);
-    enemy.attack();
-    alert(player.health);
-  }
-});
 
 function startGame() {
   let button = document.getElementById('start');
@@ -288,6 +290,44 @@ function startGame() {
     },
     false
   );
+
+
+//----------------------------------------------EVENT LISTENER FOR PLAYER ATTACKS
+window.addEventListener("keydown", function (event) {
+  console.log(event);
+  if (event.code === "ArrowRight") {
+    //sets the picked attack in player to attack1
+    player.pickedAttack = player.attack1;
+    //executes the attack method
+    player.attack();
+    console.log(enemy.health);
+    enemy.attack();
+    console.log(player.health);
+  }
+  if (event.code === "ArrowLeft") {
+    player.pickedAttack = player.attack2;
+    player.attack();
+    console.log(enemy.health);
+    enemy.attack();
+    console.log(player.health);
+  }
+  if (event.code === "ArrowDown") {
+    player.pickedAttack = player.attack3;
+    player.attack();
+    console.log(enemy.health);
+    enemy.attack();
+    console.log(player.health);
+  }
+  if (event.code === "ArrowUp") {
+    player.pickedAttack = player.attack4;
+    player.attack();
+    console.log(enemy.health);
+    enemy.attack();
+    console.log(player.health);
+  }
+});
+
+
 
 }
 
